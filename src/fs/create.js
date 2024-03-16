@@ -13,7 +13,7 @@ const create = async () => {
   } catch (error) {
     console.error('Ошибка при создании файла:', error);
   }
-    // Write your code here 
+    // Write your code here fghj
 };
 
 await create();
