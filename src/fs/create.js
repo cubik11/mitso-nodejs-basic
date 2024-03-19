@@ -1,10 +1,12 @@
+import fs from 'fs';
+
 const create = async () => {
-    try {
+  try {
     // Путь и имя нового файла
-    const filePath = 'path/to/newfile.txt';
+    const filePath = '/home/vika/Рабочий стол/fresh.txt';
 
     // Содержимое нового файла
-    const fileContent = 'Привет, мир!';
+    const fileContent = 'I am fresh and young!';
 
     // Создание файла
     await fs.promises.writeFile(filePath, fileContent);
@@ -13,7 +15,6 @@ const create = async () => {
   } catch (error) {
     console.error('Ошибка при создании файла:', error);
   }
-    // Write your code here fghj
 };
 
 await create();
