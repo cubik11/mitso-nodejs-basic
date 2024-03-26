@@ -1,12 +1,33 @@
 import { spawn } from 'child_process';
 
 const spawnChildProcess = async (args) => {
-    // Write your code here
-    const child = spawn('node', ['files/script.js', ...args], {
-        stdio: ['inherit', 'inherit', 'inherit']
+  const child = spawn('node', ['/home/vika/Рабочий стол/mitso-nodejs-basic/src/cp/files/script.js', ...args], {
+    stdio: ['pipe', 'pipe', 'inherit']
+  });
+
+  child.stdin.pipe(process.stdin);
+  child.stdout.pipe(process.stdout);
+
+  return new Promise((resolve, reject) => {
+    child.on('close', (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`Child process exited with code ${code}`));
+      }
     });
+
+    child.on('error', (error) => {
+      reject(error);
+    });
+  });
 };
 
-// Put your arguments in function call to test this functionality
-spawnChildProcess( /* [someArgument1, someArgument2, ...] */);
-spawnChildProcess(['arg1', 'arg2']);
+// Пример вызова функции spawnChildProcess с аргументами
+spawnChildProcess(['arg1', 'arg2'])
+  .then(() => {
+    console.log('Child process completed successfully');
+  })
+  .catch((error) => {
+    console.error('An error occurred:', error);
+  });
